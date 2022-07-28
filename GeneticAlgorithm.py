@@ -1,6 +1,7 @@
 import time
 import sys
 import random
+import math
 from genome import Genome
 
 class GeneticAlgorithm:
@@ -44,10 +45,18 @@ class GeneticAlgorithm:
         self.population = random.choices(self.population, probabilities, k=GeneticAlgorithm.POPULATION_SIZE)
 
     def __calc_genomes_fitness(self):
-        pass
+        for genome in self.population:
+            if genome.fitness is None:
+                genome.calc_fitness(self.matching_cost, self.alphabet, self.conversion_cost)
 
     def __calc_population_probability(self):
-        pass 
+        probabilities = []
+        for genome in self.population:
+            if genome.fitness is None:
+                genome.calc_fitness(self.matching_cost, self.alphabet, self.conversion_cost)
+            probability = math.pow(genome.fitness, -3)
+            probabilities.append(probability)
+        return probabilities 
     
     def __cross_over(self):
         pass
