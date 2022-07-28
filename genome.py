@@ -82,3 +82,13 @@ class Genome:
         g = Genome()
         g.genome = new_genome
         return g
+
+    def calc_fitness(self, matching_cost, alphabet, conversion_cost):
+        self.fitness = conversion_cost
+        for i in range(len(self.genome[0])):
+            for j in range(len(self.genome)):
+                for z in range(j + 1, len(self.genome)):
+                    self.fitness += matching_cost[alphabet[self.genome[j][i]]][alphabet[self.genome[z][i]]]
+
+    def __lt__(self, other):
+        return self.fitness < other.fitness
