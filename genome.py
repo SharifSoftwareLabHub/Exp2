@@ -43,3 +43,10 @@ class Genome:
                 genome.append(copy.copy(genome2.genome[i]))
         children_genome.genome = genome
         return children_genome
+
+    @staticmethod
+    def __calc_cost_of_two_strings(string1, string2, matching_cost, alphabet):
+        cost = 0
+        for i in range(len(string1)):
+            cost += matching_cost[alphabet[string1[i]]][alphabet[string2[i]]]
+        return cost
