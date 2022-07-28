@@ -1,4 +1,5 @@
 import random
+import copy
 
 
 class Genome:
@@ -30,3 +31,15 @@ class Genome:
             dashes_indexes = sorted(random.sample(range(strings_length), number_of_dashes))
             self.genome.append(
                 Genome.put_dashes_and_get_final_string(dashes_indexes, initial_strings[i], strings_length))
+
+    @staticmethod
+    def cross_over(genome1, genome2, number_of_strings):
+        children_genome = Genome()
+        genome = []
+        for i in range(number_of_strings):
+            if random.getrandbits(1) == 1:
+                genome.append(copy.copy(genome1.genome[i]))
+            else:
+                genome.append(copy.copy(genome2.genome[i]))
+        children_genome.genome = genome
+        return children_genome
