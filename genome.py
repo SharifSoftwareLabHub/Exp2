@@ -50,3 +50,35 @@ class Genome:
         for i in range(len(string1)):
             cost += matching_cost[alphabet[string1[i]]][alphabet[string2[i]]]
         return cost
+
+    @staticmethod
+    def __choose_best_mutation(genome, initial_strings, strings_length, number_of_dashes, mutation_row,
+                               longest_string_index, matching_cost, alphabet):
+        # mutate 10 step and choose best
+        mutated_min_cost = 1000000000
+        mutated_string = None
+        for i in range(10):
+            dashes_indexes = sorted(random.sample(range(strings_length), number_of_dashes))
+            temp = Genome.put_dashes_and_get_final_string(dashes_indexes, initial_strings[mutation_row], strings_length)
+            cost = Genome.__calc_cost_of_two_strings(genome.genome[longest_string_index], temp, matching_cost, alphabet)
+            if cost < mutated_min_cost:
+                mutated_string = temp
+                mutated_min_cost = cost
+        return mutated_string
+
+    @staticmethod
+    def mutation(genome, initial_strings, number_of_strings, strings_length, longest_string_index,
+                 matching_cost, alphabet):
+        new_genome = []
+        mutation_row = random.randint(0, number_of_strings - 1)
+        number_of_dashes = strings_length - len(initial_strings[mutation_row])
+        mutated_string = Genome.__choose_best_mutation(genome, initial_strings, strings_length, number_of_dashes,
+                                                       mutation_row, longest_string_index, matching_cost, alphabet)
+        for i in range(number_of_strings):
+            if i == mutation_row:
+                new_genome.append(mutated_string)
+            else:
+                new_genome.append(copy.copy(genome.genome[i]))
+        g = Genome()
+        g.genome = new_genome
+        return g
