@@ -12,11 +12,15 @@ class GeneticAlgorithm:
     best_genome = Genome()
     best_genome.fitness = MAX_VALUE
 
-    def __init__(self, initial_strings, strings_length):
+    def __init__(self, initial_strings, strings_length, matching_cost, alphabet, conversion_cost, longest_string_index):
         self.initial_strings = initial_strings
         self.strings_length = strings_length
         self.number_of_strings = len(initial_strings)
         self.population = self.__make_initial_population()
+        self.matching_cost = matching_cost
+        self.alphabet = alphabet
+        self.conversion_cost = conversion_cost
+        self.longest_string_index = longest_string_index
         
     def __make_initial_population(self):
         population = [Genome() for i in range(GeneticAlgorithm.POPULATION_SIZE)]
@@ -67,7 +71,11 @@ class GeneticAlgorithm:
                 Genome.cross_over(self.population[parents[i]], self.population[parents[i + 1]], self.number_of_strings))
     
     def __mutation(self):
-        pass
+        # all of parents and child will mutated and this limit on range cause to avoid mutation on mutated
+        for i in range((GeneticAlgorithm.POPULATION_SIZE * 3) // 2):
+            self.population.append(
+                Genome.mutation(self.population[i], self.initial_strings, self.number_of_strings, self.strings_length,
+                                self.longest_string_index, self.matching_cost, self.alphabet))
 
     @staticmethod
     def print_best_genome(stdout_or_err):
