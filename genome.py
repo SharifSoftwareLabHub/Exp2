@@ -1,2 +1,2 @@
-class genome:
+class Genome:
     pass
