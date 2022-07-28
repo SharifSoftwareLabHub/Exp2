@@ -19,3 +19,14 @@ class Genome:
                 chars.append(string[string_counter])
                 string_counter += 1
         return ''.join(chars)
+
+    def random_initialize_genome(self, initial_strings, number_of_strings, strings_length):
+        self.genome = []
+        for i in range(number_of_strings):
+            number_of_dashes = strings_length - len(initial_strings[i])
+            if number_of_dashes == 0:
+                self.genome.append(initial_strings[i])
+                continue
+            dashes_indexes = sorted(random.sample(range(strings_length), number_of_dashes))
+            self.genome.append(
+                Genome.put_dashes_and_get_final_string(dashes_indexes, initial_strings[i], strings_length))
