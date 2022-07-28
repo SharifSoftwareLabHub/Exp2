@@ -59,7 +59,12 @@ class GeneticAlgorithm:
         return probabilities 
     
     def __cross_over(self):
-        pass
+        parents = list(range(len(self.population)))
+        # parents[i] and parents[i + 1] are parents of a children
+        random.shuffle(parents)
+        for i in range(0, len(parents), 2):
+            self.population.append(
+                Genome.cross_over(self.population[parents[i]], self.population[parents[i + 1]], self.number_of_strings))
     
     def __mutation(self):
         pass
