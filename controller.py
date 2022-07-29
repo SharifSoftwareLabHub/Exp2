@@ -11,3 +11,9 @@ class Controller:
         self.matching_cost = []
         self.max_strings_length_index = None
         self.max_strings_length = None
+
+    @staticmethod
+    def get_instance():
+        if Controller.instance is None:
+            Controller.instance = Controller()
+        return Controller.instance
