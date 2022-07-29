@@ -59,7 +59,10 @@ class Controller:
         self.max_strings_length = len(self.initial_strings[self.max_strings_length_index])
 
     def __calc_initial_conversion_cost(self, strings_length):
-        pass
+        initial_conversion_cost = 0
+        for string in self.initial_strings:
+            initial_conversion_cost += (strings_length - len(string)) * self.conversion_cost
+        return initial_conversion_cost
 
 
 Controller.get_instance().start()
