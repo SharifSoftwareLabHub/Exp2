@@ -35,10 +35,24 @@ class Controller:
         GeneticAlgorithm.print_best_genome(sys.stdout)
 
     def __get_inputs(self):
-        pass
+        self.alphabet_size = int(input())
+        self.alphabet = dict()
+        alphabet = input().split(', ')
+        for i, char in enumerate(alphabet):
+            self.alphabet[char] = i
+        self.alphabet['-'] = self.alphabet_size
+        self.number_of_strings = int(input())
+        for i in range(self.number_of_strings):
+            self.initial_strings.append(input())
+        self.conversion_cost = int(input())
+        for i in range(self.alphabet_size + 1):
+            self.matching_cost.append(list(map(int, input().split(' '))))
 
     def __calc_max_string_length_index(self):
         pass
 
     def __calc_initial_conversion_cost(self, strings_length):
         pass
+
+
+Controller.get_instance().start()
