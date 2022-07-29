@@ -30,7 +30,14 @@ class Controller:
         pass
 
     def __calc_max_string_length_index(self):
-        pass
+        max_strings_length = 0
+        max_strings_length_index = None
+        for i, string in enumerate(self.initial_strings):
+            if max_strings_length < len(string):
+                max_strings_length = len(string)
+                max_strings_length_index = i
+        self.max_strings_length_index = max_strings_length_index
+        self.max_strings_length = len(self.initial_strings[self.max_strings_length_index])
 
     def __calc_initial_conversion_cost(self, strings_length):
         pass
